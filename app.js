@@ -20,7 +20,22 @@ const {
 const saltRounds = 10;
 
 const app = express()
-
+app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: false }));
+app.set("view engine", "ejs");
+app.use(cookieParser("Some ggggg"));
+app.use(flash());
+app.use(
+  session({
+    secret: "that the sceret",
+    cookie: {
+      maxAge: 24 * 60 * 60 * 1000,
+    },
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+app.use(csrf("UicyujMtrtvsSJEHUggK3Dz0NR6K0pIm", ["DELETE", "PUT", "POST"]));
 app.use(passport.initialize());
 app.use(passport.session());
 
